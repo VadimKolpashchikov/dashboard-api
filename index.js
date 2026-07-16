@@ -1,42 +1,38 @@
 import express from 'express';
+import { userRouter } from './users/users.js';
 
 const port = 8000;
 const app = express();
 
-// app.all('/hello', (req, res, next) => {
-//   console.log('ALL');
-//   next();
-// });
-
-// app.get(/.*a$/, (req, res) => {
-//   res.send('Hello! a');
-// });
-
-// const cb = (req, res, next) => {
-//   console.log('CB');
-//   next();
-// };
-
-// app.get('/hello2', [cb, cb, cb, cb], (req, res) => {
-//   res.send('Hello!');
-// });
-
-// app.get('/hello', cb, (req, res) => {
-//   res.send('Hello!');
-// });
-
-app.get('/hello', (req, res) => {
-  res.send('Hello!');
+app.use((req, res, next) => {
+  console.log('Time', Date.now());
+  next();
 });
 
-app
-  .route('/user/hello')
-  .get((req, res) => {
-    res.send('Hello GET!');
-  })
-  .post((req, res) => {
-    res.send('Hello POST!');
-  });
+app.use('/hello', (req, res, next) => {
+  console.log('Time Hello', Date.now());
+  next();
+});
+
+app.use('/users', (req, res, next) => {
+  console.log('Time USers Global', Date.now());
+  next();
+});
+
+app.get('/hello', (req, res) => {
+  res.type('application/json').send('Hello!');
+});
+
+app.get('/error', (req, res) => {
+  throw new Error('Error!!!');
+});
+
+app.use('/users', userRouter);
+
+app.use((err, req, res, next) => {
+  console.log(err.message);
+  res.status(500).send(err.message);
+});
 
 app.listen(port, () => {
   console.log(`Server start on http://localhost:${port}`);
