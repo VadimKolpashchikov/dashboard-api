@@ -20,7 +20,8 @@
     "build": "tsc"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "tslog": "^5.1.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.6"
