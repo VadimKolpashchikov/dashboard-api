@@ -1,9 +1,9 @@
 import express from 'express';
 import type { Express } from 'express';
 import type { Server } from 'http';
-import type { LoggerService } from './logger/logger.service.js';
 import type { UserController } from './users/user.controller.js';
 import type { ExceptionFilter } from './errors/exception.filter.js';
+import type { ILogger } from './logger/logger.interface.js';
 
 export class App {
   app: Express;
@@ -11,7 +11,7 @@ export class App {
   port: number;
 
   constructor(
-    protected logger: LoggerService,
+    protected logger: ILogger,
     protected userController: UserController,
     protected exceptionFilter: ExceptionFilter,
   ) {

@@ -1,11 +1,11 @@
-import type { LoggerService } from '../logger/logger.service.js';
 import { Router, type Response } from 'express';
 import type { IRouteController } from './route.interface.js';
+import type { ILogger } from '../logger/logger.interface.js';
 
 export abstract class BaseController {
   private readonly _router: Router;
 
-  constructor(private logger: LoggerService) {
+  constructor(private logger: ILogger) {
     this._router = Router();
   }
 
