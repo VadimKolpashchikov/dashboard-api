@@ -1,16 +1,27 @@
+import { Container, ContainerModule, type Bind } from 'inversify';
 import { App } from './app.js';
 import { ExceptionFilter } from './errors/exception.filter.js';
 import { LoggerService } from './logger/logger.service.js';
 import { UserController } from './users/user.controller.js';
+import type { ILogger } from './logger/logger.interface.js';
+import { types } from './types.js';
+import type { IExceptionFilter } from './errors/exception.filter.interface.js';
+import type { IUserController } from './users/user.controller.interface.js';
+
+export const appBindings = new ContainerModule((options) => {
+  options.bind<ILogger>(types.ILogger).to(LoggerService);
+  options.bind<IExceptionFilter>(types.IExceptionFilter).to(ExceptionFilter);
+  options.bind<IUserController>(types.IUserController).to(UserController);
+  options.bind<App>(types.Application).to(App);
+});
 
 async function bootstrap() {
-  const logger = new LoggerService();
-  const app = new App(
-    logger,
-    new UserController(logger),
-    new ExceptionFilter(logger),
-  );
+  const appContainer = new Container();
+  appContainer.load(appBindings);
+  const app = appContainer.get<App>(types.Application);
   await app.init();
+
+  return { app, appContainer };
 }
 
-bootstrap();
+export const { app, appContainer } = await bootstrap();

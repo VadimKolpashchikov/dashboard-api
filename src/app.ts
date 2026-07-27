@@ -4,16 +4,19 @@ import type { Server } from 'http';
 import type { UserController } from './users/user.controller.js';
 import type { ExceptionFilter } from './errors/exception.filter.js';
 import type { ILogger } from './logger/logger.interface.js';
+import { inject, injectable } from 'inversify';
+import { types } from './types.js';
 
+injectable();
 export class App {
   app: Express;
   server: Server;
   port: number;
 
   constructor(
-    protected logger: ILogger,
-    protected userController: UserController,
-    protected exceptionFilter: ExceptionFilter,
+    @inject(types.ILogger) protected logger: ILogger,
+    @inject(types.IUserController) protected userController: UserController,
+    @inject(types.IExceptionFilter) protected exceptionFilter: ExceptionFilter,
   ) {
     this.app = express();
     this.port = 8000;

@@ -22,6 +22,8 @@
   },
   "dependencies": {
     "express": "^5.2.1",
+    "inversify": "^8.2.3",
+    "reflect-metadata": "^0.2.2",
     "tslog": "^5.1.0"
   },
   "devDependencies": {

@@ -1,11 +1,13 @@
 import { Router, type Response } from 'express';
 import type { IRouteController } from './route.interface.js';
 import type { ILogger } from '../logger/logger.interface.js';
+import { injectable } from 'inversify';
 
+injectable();
 export abstract class BaseController {
   private readonly _router: Router;
 
-  constructor(private logger: ILogger) {
+  constructor(protected logger: ILogger) {
     this._router = Router();
   }
 
