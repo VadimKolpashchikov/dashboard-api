@@ -24,12 +24,12 @@ export class UserController extends BaseController implements IUserController {
     ]);
   }
 
-  login(req: Request, res: Response, next: NextFunction) {
+  login(req: Request, res: Response, next: NextFunction): void {
     next(new HttpError(401, 'Authorization error', 'Login'));
     // this.ok(res, 'Login');
   }
 
-  register(req: Request, res: Response, next: NextFunction) {
+  register(req: Request, res: Response, next: NextFunction): void {
     this.ok(res, 'Register');
   }
 }

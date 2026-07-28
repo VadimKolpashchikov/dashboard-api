@@ -1,3 +1,4 @@
+/* eslint-disable */
 {
   let a = 5;
   let b = '';
@@ -240,7 +241,7 @@
   }
 
   class MyClass<T> {
-    a: T;
+    a!: T;
   }
 
   const b = new MyClass<string>();
@@ -261,12 +262,12 @@
   }
 
   class Animal {
-    name: string;
+    name!: string;
   }
 
   class Dog {
-    name: string;
-    tail: boolean;
+    name!: string;
+    tail!: boolean;
   }
 
   const puppy: Animal = new Dog();

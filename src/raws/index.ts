@@ -1,3 +1,4 @@
+/* eslint-disable */
 import express from 'express';
 import type { Request, Response, NextFunction } from 'express';
 // import { userRouter } from './users/users.js';
@@ -28,7 +29,7 @@ app.get('/error', (req, res) => {
   throw new Error('Error!!!');
 });
 
-app.use('/users', userRouter);
+// app.use('/users', userRouter);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   console.log(err.message);

@@ -47,6 +47,6 @@
     "skipLibCheck": true,
   },
   "exclude": [
-    "./src/raws"
+    "./src/raws",
   ]
 }
