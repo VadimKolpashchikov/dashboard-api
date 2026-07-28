@@ -1,41 +1,43 @@
 {
-  "name": "dashboard-api",
-  "version": "1.0.0",
-  "description": "API на NodeJS",
-  "homepage": "https://github.com/VadimKolpashchikov/dashboard-api#readme",
-  "bugs": {
-    "url": "https://github.com/VadimKolpashchikov/dashboard-api/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/VadimKolpashchikov/dashboard-api.git"
-  },
-  "license": "ISC",
-  "author": "Vadim Kolpashchikov",
-  "type": "module",
-  "main": "./dist/main.js",
-  "scripts": {
-    "start": "node ./dist/main.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "tsc": "tsc --noEmit",
-    "build": "tsc",
-    "lint": "eslint ./src/**"
-  },
-  "dependencies": {
-    "express": "^5.2.1",
-    "inversify": "^8.2.3",
-    "reflect-metadata": "^0.2.2",
-    "tslog": "^5.1.0"
-  },
-  "devDependencies": {
-    "@eslint/js": "^10.0.1",
-    "@types/express": "^5.0.6",
-    "@typescript/native": "npm:typescript@^7.0.2",
-    "eslint": "^10.8.0",
-    "eslint-config-prettier": "^10.1.8",
-    "globals": "^17.8.0",
-    "prettier": "^3.9.6",
-    "typescript": "npm:@typescript/typescript6@^6.0.2",
-    "typescript-eslint": "^8.65.0"
-  }
+	"name": "dashboard-api",
+	"version": "1.0.0",
+	"description": "API на NodeJS",
+	"homepage": "https://github.com/VadimKolpashchikov/dashboard-api#readme",
+	"bugs": {
+		"url": "https://github.com/VadimKolpashchikov/dashboard-api/issues"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/VadimKolpashchikov/dashboard-api.git"
+	},
+	"license": "ISC",
+	"author": "Vadim Kolpashchikov",
+	"type": "module",
+	"main": "./dist/main.js",
+	"scripts": {
+		"dev": "tsx watch --include ./src/** --exclude ./src/**/*.spec.ts --clear-screen=false ./src/main.ts",
+		"dev:inspect": "tsx --inspect-brk ./src/main.ts",
+		"lint": "eslint ./src/**",
+		"build": "tsc",
+		"start": "node ./dist/main.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"dependencies": {
+		"express": "^5.2.1",
+		"inversify": "^8.2.3",
+		"reflect-metadata": "^0.2.2",
+		"tslog": "^5.1.0"
+	},
+	"devDependencies": {
+		"@eslint/js": "^10.0.1",
+		"@types/express": "^5.0.6",
+		"@typescript/native": "npm:typescript@^7.0.2",
+		"eslint": "^10.8.0",
+		"eslint-config-prettier": "^10.1.8",
+		"globals": "^17.8.0",
+		"prettier": "^3.9.6",
+		"tsx": "^4.23.1",
+		"typescript": "npm:@typescript/typescript6@^6.0.2",
+		"typescript-eslint": "^8.65.0"
+	}
 }

@@ -8,28 +8,28 @@ import type { IUserController } from './user.controller.interface.js';
 
 injectable();
 export class UserController extends BaseController implements IUserController {
-  constructor(@inject(types.ILogger) protected logger: ILogger) {
-    super(logger);
-    this.bindRoutes([
-      {
-        path: '/login',
-        method: 'post',
-        func: this.login,
-      },
-      {
-        path: '/register',
-        method: 'post',
-        func: this.register,
-      },
-    ]);
-  }
+	constructor(@inject(types.ILogger) protected logger: ILogger) {
+		super(logger);
+		this.bindRoutes([
+			{
+				path: '/login',
+				method: 'post',
+				func: this.login,
+			},
+			{
+				path: '/register',
+				method: 'post',
+				func: this.register,
+			},
+		]);
+	}
 
-  login(req: Request, res: Response, next: NextFunction): void {
-    next(new HttpError(401, 'Authorization error', 'Login'));
-    // this.ok(res, 'Login');
-  }
+	login(req: Request, res: Response, next: NextFunction): void {
+		next(new HttpError(401, 'Authorization error', 'Login'));
+		// this.ok(res, 'Login');
+	}
 
-  register(req: Request, res: Response, next: NextFunction): void {
-    this.ok(res, 'Register');
-  }
+	register(req: Request, res: Response, next: NextFunction): void {
+		this.ok(res, 'Register');
+	}
 }
