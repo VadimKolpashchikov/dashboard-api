@@ -16,7 +16,7 @@
 	"main": "./dist/main.js",
 	"scripts": {
 		"dev": "tsx watch --include ./src/** --exclude ./src/**/*.spec.ts --clear-screen=false ./src/main.ts",
-		"dev:inspect": "tsx --inspect-brk ./src/main.ts",
+		"dev:inspect": "tsx watch --inspect-brk  ./src/main.ts",
 		"lint": "eslint ./src/**",
 		"build": "tsc",
 		"start": "node ./dist/main.js",
