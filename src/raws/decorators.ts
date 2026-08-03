@@ -1,4 +1,5 @@
 /* eslint-disable */
+// @ts-nocheck
 function Component(id: number) {
 	console.log('Init @Component');
 

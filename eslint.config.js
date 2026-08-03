@@ -2,7 +2,7 @@ import js from '@eslint/js';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 import { defineConfig } from 'eslint/config';
-import eslintPluginPrettier from 'eslint-config-prettier';
+import eslintConfigPrettier from 'eslint-config-prettier/flat';
 
 export default defineConfig([
 	{
@@ -26,6 +26,9 @@ export default defineConfig([
 				onUnsupportedTypeScriptVersion: 'warn',
 			},
 		},
+		plugins: {
+			'@typescript-eslint': tseslint.plugin,
+		},
 	},
-	eslintPluginPrettier,
+	eslintConfigPrettier,
 ]);
