@@ -1,4 +1,4 @@
-import { Container, ContainerModule, type Bind } from 'inversify';
+import { Container, ContainerModule } from 'inversify';
 import { App } from './app.js';
 import { ExceptionFilter } from './errors/exception.filter.js';
 import { LoggerService } from './logger/logger.service.js';
