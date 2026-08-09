@@ -15,7 +15,7 @@ export class ExceptionFilter implements IExceptionFilter {
 			);
 			res.status(err.statusCode).json({ error: err.message });
 		} else {
-			this.logger.error(err.message);
+			this.logger.error(err.stack ?? err.message);
 			res.status(500).json({ error: err.message });
 		}
 	}

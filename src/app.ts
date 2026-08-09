@@ -2,10 +2,11 @@ import express from 'express';
 import type { Express } from 'express';
 import type { Server } from 'http';
 import type { UsersController } from './users/users.controller.js';
-import type { ExceptionFilter } from './errors/exception.filter.js';
 import type { ILogger } from './logger/logger.interface.js';
 import { inject, injectable } from 'inversify';
 import { types } from './types.js';
+import type { IExceptionFilter } from './errors/exception.filter.interface.js';
+import type { IConfigService } from './config/types/config.service.interface.js';
 
 injectable();
 export class App {
@@ -16,7 +17,8 @@ export class App {
 	constructor(
 		@inject(types.ILogger) protected logger: ILogger,
 		@inject(types.IUsersController) protected userController: UsersController,
-		@inject(types.IExceptionFilter) protected exceptionFilter: ExceptionFilter,
+		@inject(types.IExceptionFilter) protected exceptionFilter: IExceptionFilter,
+		@inject(types.IConfigService) protected configService: IConfigService,
 	) {
 		this.app = express();
 		this.port = 8000;
