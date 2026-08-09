@@ -11,6 +11,7 @@
     "module": "nodenext",
     "target": "esnext",
     "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "useDefineForClassFields": false,
     // "types": [],
     // For nodejs:
