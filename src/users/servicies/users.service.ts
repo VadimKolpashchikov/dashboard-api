@@ -10,7 +10,8 @@ export class UsersService implements IUsersService {
 		const user = new UserEntity(email, name);
 		await user.setPassword(password);
 		// Проверка на существование пользователя
-		return user;
+		return null;
+		// return user;
 	}
 	async validateUser(dto: UserLoginDto): Promise<boolean> {
 		return true;

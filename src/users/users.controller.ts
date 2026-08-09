@@ -6,8 +6,9 @@ import type { NextFunction, Request, Response } from 'express';
 import { types } from '../types.js';
 import type { IUsersController } from './types/users.controller.interface.js';
 import type { UserLoginDto } from './DTO/user-login.dto.js';
-import type { UserRegisterDto } from './DTO/user-register.dto.js';
+import { UserRegisterDto } from './DTO/user-register.dto.js';
 import type { IUsersService } from './types/users.service.interface.js';
+import { ValidateMiddleware } from '../common/middlewares/validate.middleware.js';
 
 injectable();
 export class UsersController extends BaseController implements IUsersController {
@@ -26,6 +27,7 @@ export class UsersController extends BaseController implements IUsersController 
 				path: '/register',
 				method: 'post',
 				func: this.register,
+				middlewares: [new ValidateMiddleware(UserRegisterDto)],
 			},
 		]);
 	}

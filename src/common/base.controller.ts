@@ -1,5 +1,5 @@
 import { Router, type Response } from 'express';
-import type { ExpressReturnType, IRouteController } from './route.interface.js';
+import type { ExpressReturnType, IRouteController } from './types/route.interface.js';
 import type { ILogger } from '../logger/logger.interface.js';
 import { inject, injectable } from 'inversify';
 import { types } from '../types.js';
@@ -36,7 +36,7 @@ export abstract class BaseController {
 			const handler = route.func.bind(this);
 			const pipeline = [...middlewares, handler];
 
-			this.router[route.method](route.path, handler);
+			this.router[route.method](route.path, pipeline);
 		}
 	}
 }
