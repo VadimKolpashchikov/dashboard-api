@@ -2,8 +2,13 @@
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
-    "rootDir": "./src",
+    // "rootDir": "./src",
     "outDir": "./dist",
+    "paths": {
+      "@database/*": [
+        "./prisma/generated/prisma/*"
+      ]
+    },
     "removeComments": true,
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
@@ -49,5 +54,11 @@
   },
   "exclude": [
     "./src/raws",
+    // "./prisma.config.ts",
+    // "./prisma"
+  ],
+  "include": [
+    "src/**/*",
+    "./prisma/generated/prisma/**/*"
   ]
 }
