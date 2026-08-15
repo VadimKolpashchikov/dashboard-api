@@ -3,4 +3,3 @@ node_modules
 dist
 /prisma/generated/prisma/
 prisma/dev.db
-/ttt/
