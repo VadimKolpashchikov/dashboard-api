@@ -5,7 +5,7 @@ import type { ILogger } from '../logger/logger.interface.js';
 import type { NextFunction, Request, Response } from 'express';
 import { types } from '../types.js';
 import type { IUsersController } from './types/users.controller.interface.js';
-import type { UserLoginDto } from './DTO/user-login.dto.js';
+import { UserLoginDto } from './DTO/user-login.dto.js';
 import { UserRegisterDto } from './DTO/user-register.dto.js';
 import type { IUsersService } from './types/users.service.interface.js';
 import { ValidateMiddleware } from '../common/middlewares/validate.middleware.js';
@@ -22,6 +22,7 @@ export class UsersController extends BaseController implements IUsersController 
 				path: '/login',
 				method: 'post',
 				func: this.login,
+				middlewares: [new ValidateMiddleware(UserLoginDto)],
 			},
 			{
 				path: '/register',
@@ -32,10 +33,18 @@ export class UsersController extends BaseController implements IUsersController 
 		]);
 	}
 
-	login(req: Request<{}, {}, UserLoginDto>, res: Response, next: NextFunction): void {
-		console.log(req.body);
-		next(new HttpError(401, 'Authorization error', 'Login'));
-		// this.ok(res, 'Login');
+	async login(
+		req: Request<{}, {}, UserLoginDto>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const isValid = await this.usersService.validateUser(req.body);
+
+		if (!isValid) {
+			return next(new HttpError(401, 'Authorization error', 'Login'));
+		}
+
+		this.ok(res, 'Login Ok');
 	}
 
 	async register(
