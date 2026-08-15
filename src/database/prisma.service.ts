@@ -1,17 +1,21 @@
 import { PrismaClient } from '@database/client.js';
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3';
 import { inject, injectable } from 'inversify';
-import type { UserModel } from '@database/models.js';
 import type { ILogger } from '../logger/logger.interface.js';
 import { types } from '../types.js';
+import type { IConfigService } from '../config/types/config.service.interface.js';
 
 @injectable()
 export class PrismaService {
 	client: PrismaClient;
-	dd: UserModel;
 
-	constructor(@inject(types.ILogger) protected logger: ILogger) {
-		const adapter = new PrismaBetterSqlite3({ url: 'file:./dev.db' });
+	constructor(
+		@inject(types.ILogger) protected logger: ILogger,
+		@inject(types.IConfigService) protected configService: IConfigService,
+	) {
+		const adapter = new PrismaBetterSqlite3({
+			url: configService.get('DATABASE_URL'),
+		});
 		this.client = new PrismaClient({ adapter });
 	}
 
