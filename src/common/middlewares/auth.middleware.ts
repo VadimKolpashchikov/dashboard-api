@@ -1,6 +1,7 @@
 import type { Request, Response, NextFunction } from 'express';
 import type { IMiddleware } from '../types/middleware.interface.js';
 import jwt from 'jsonwebtoken';
+import { HttpError } from '../../errors/http-error.class.js';
 
 export class AuthMiddleware implements IMiddleware {
 	constructor(private readonly secretKey: string) {}
@@ -14,7 +15,7 @@ export class AuthMiddleware implements IMiddleware {
 			if (token) {
 				jwt.verify(token, this.secretKey, (err, payload) => {
 					if (err) {
-						next();
+						next(new HttpError(403, 'Authorization error - invalid token', 'AuthMiddleware'));
 					} else if (payload && typeof payload === 'object') {
 						req.user = payload.email;
 						next();
