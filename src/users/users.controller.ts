@@ -9,6 +9,7 @@ import { UserLoginDto } from './DTO/user-login.dto.js';
 import { UserRegisterDto } from './DTO/user-register.dto.js';
 import type { IUsersService } from './types/users.service.interface.js';
 import { ValidateMiddleware } from '../common/middlewares/validate.middleware.js';
+import { AuthGuard } from '../common/middlewares/auth.guard.js';
 
 injectable();
 export class UsersController extends BaseController implements IUsersController {
@@ -30,6 +31,12 @@ export class UsersController extends BaseController implements IUsersController 
 				func: this.register,
 				middlewares: [new ValidateMiddleware(UserRegisterDto)],
 			},
+			{
+				path: '/info',
+				method: 'get',
+				func: this.info,
+				middlewares: [new AuthGuard()],
+			},
 		]);
 	}
 
@@ -44,7 +51,7 @@ export class UsersController extends BaseController implements IUsersController 
 			return next(new HttpError(401, 'Authorization error', 'Login'));
 		}
 
-		const jwt = await this.usersService.singJWT(req.body.email);
+		const jwt = await this.usersService.singJWT(req.body);
 
 		this.ok(res, { jwt });
 	}
@@ -61,5 +68,25 @@ export class UsersController extends BaseController implements IUsersController 
 
 		const { email, id } = newUser;
 		this.ok(res, { email, id });
+	}
+
+	async info(
+		req: Request<{}, {}, UserRegisterDto>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		let user = null;
+
+		if (req.user) {
+			const existedUser = await this.usersService.getUser(req.user);
+			if (existedUser) {
+				user = {
+					email: existedUser.email,
+					id: existedUser.id,
+				};
+			}
+		}
+
+		this.ok(res, { user });
 	}
 }

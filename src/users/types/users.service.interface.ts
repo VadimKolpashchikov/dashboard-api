@@ -4,6 +4,7 @@ import type { UserRegisterDto } from '../DTO/user-register.dto.js';
 
 export interface IUsersService {
 	createUser: (dto: UserRegisterDto) => Promise<UserModel | null>;
+	getUser: (email: UserRegisterDto['email']) => Promise<UserModel | null>;
 	validateUser: (dto: UserLoginDto) => Promise<boolean>;
-	singJWT: (email: string, secret?: string) => Promise<string>;
+	singJWT: (dto: UserLoginDto, secret?: string) => Promise<string>;
 }

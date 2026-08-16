@@ -8,6 +8,7 @@ import { types } from './types.js';
 import type { IExceptionFilter } from './errors/exception.filter.interface.js';
 import type { IConfigService } from './config/types/config.service.interface.js';
 import type { PrismaService } from './database/prisma.service.js';
+import { AuthMiddleware } from './common/middlewares/auth.middleware.js';
 
 injectable();
 export class App {
@@ -27,7 +28,10 @@ export class App {
 	}
 
 	useMiddleware(): void {
-		this.app.use(express.json());
+		const secretKey = this.configService.get('SECRET');
+		const authMiddleware = new AuthMiddleware(secretKey as string);
+
+		this.app.use(express.json()).use(authMiddleware.execute.bind(authMiddleware));
 	}
 
 	useRoutes(): void {

@@ -27,6 +27,10 @@ export class UsersService implements IUsersService {
 		return this.userRepository.create(user);
 	}
 
+	async getUser(email: UserRegisterDto['email']): ReturnType<IUsersRepository['find']> {
+		return this.userRepository.find(email);
+	}
+
 	async validateUser(dto: UserLoginDto): Promise<boolean> {
 		const existedUser = await this.userRepository.find(dto.email);
 		if (!existedUser) {
@@ -36,12 +40,12 @@ export class UsersService implements IUsersService {
 		return await UserEntity.comparePassword(dto.password, existedUser.password);
 	}
 
-	singJWT(email: string, secretKey?: string): Promise<string> {
+	singJWT(dto: UserLoginDto, secretKey?: string): Promise<string> {
 		const secret = secretKey ?? (this.configService.get('SECRET') as string);
 		return new Promise<string>((resolve, reject) => {
 			jwt.sign(
 				{
-					email,
+					email: dto.email,
 					iat: Math.floor(Date.now() / 1000),
 				},
 				secret,
