@@ -44,7 +44,9 @@ export class UsersController extends BaseController implements IUsersController 
 			return next(new HttpError(401, 'Authorization error', 'Login'));
 		}
 
-		this.ok(res, 'Login Ok');
+		const jwt = await this.usersService.singJWT(req.body.email);
+
+		this.ok(res, { jwt });
 	}
 
 	async register(

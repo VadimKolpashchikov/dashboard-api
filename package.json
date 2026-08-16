@@ -31,6 +31,7 @@
 		"class-validator": "^0.15.1",
 		"express": "^5.2.1",
 		"inversify": "^8.2.3",
+		"jsonwebtoken": "^9.0.3",
 		"reflect-metadata": "^0.2.2",
 		"tslog": "^5.1.0"
 	},
@@ -38,6 +39,7 @@
 		"@eslint/js": "^10.0.1",
 		"@types/bcryptjs": "^2.4.6",
 		"@types/express": "^5.0.6",
+		"@types/jsonwebtoken": "^9.0.10",
 		"@typescript/native": "npm:typescript@^7.0.2",
 		"dotenv": "^17.4.2",
 		"eslint": "^10.8.0",

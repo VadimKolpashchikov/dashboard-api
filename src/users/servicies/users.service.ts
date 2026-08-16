@@ -7,6 +7,7 @@ import type { IConfigService } from '../../config/types/config.service.interface
 import { types } from '../../types.js';
 import type { IUsersRepository } from '../types/users.repository.interface.js';
 import type { UserModel } from '@database/models.js';
+import jwt from 'jsonwebtoken';
 
 @injectable()
 export class UsersService implements IUsersService {
@@ -14,6 +15,7 @@ export class UsersService implements IUsersService {
 		@inject(types.IConfigService) protected configService: IConfigService,
 		@inject(types.IUsersRepository) protected userRepository: IUsersRepository,
 	) {}
+
 	async createUser({ email, name, password }: UserRegisterDto): Promise<UserModel | null> {
 		if (await this.userRepository.find(email)) {
 			return null;
@@ -24,6 +26,7 @@ export class UsersService implements IUsersService {
 
 		return this.userRepository.create(user);
 	}
+
 	async validateUser(dto: UserLoginDto): Promise<boolean> {
 		const existedUser = await this.userRepository.find(dto.email);
 		if (!existedUser) {
@@ -31,5 +34,28 @@ export class UsersService implements IUsersService {
 		}
 
 		return await UserEntity.comparePassword(dto.password, existedUser.password);
+	}
+
+	singJWT(email: string, secretKey?: string): Promise<string> {
+		const secret = secretKey ?? (this.configService.get('SECRET') as string);
+		return new Promise<string>((resolve, reject) => {
+			jwt.sign(
+				{
+					email,
+					iat: Math.floor(Date.now() / 1000),
+				},
+				secret,
+				{
+					algorithm: 'HS256',
+				},
+				(err, token) => {
+					if (err) {
+						reject(err);
+					}
+
+					resolve(token as string);
+				},
+			);
+		});
 	}
 }
