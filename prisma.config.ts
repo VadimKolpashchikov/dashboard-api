@@ -2,11 +2,11 @@ import 'dotenv/config';
 import { defineConfig } from 'prisma/config';
 
 export default defineConfig({
-	schema: 'prisma/',
+	schema: 'src/prisma/',
 	migrations: {
-		path: 'prisma/migrations',
+		path: 'src/prisma/migrations',
 	},
 	datasource: {
-		url: 'file:./prisma/dev.db',
+		url: 'file:./src/prisma/dev.db',
 	},
 });

@@ -8,7 +8,7 @@ import { types } from './types.js';
 import type { IExceptionFilter } from './errors/exception.filter.interface.js';
 import type { IUsersController } from './users/types/users.controller.interface.js';
 import type { IUsersService } from './users/types/users.service.interface.js';
-import { UsersService } from './users/servicies/users.service.js';
+import { UsersService } from './users/services/users.service.js';
 import type { IConfigService } from './config/types/config.service.interface.js';
 import { ConfigService } from './config/config.service.js';
 import { PrismaService } from './database/prisma.service.js';

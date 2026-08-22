@@ -21,7 +21,7 @@
 		"lint": "eslint ./src/**",
 		"start": "node ./dist/main.js",
 		"build": "tsc",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "cross-env NODE_OPTIONS=\"--experimental-vm-modules\" jest"
 	},
 	"dependencies": {
 		"@prisma/adapter-better-sqlite3": "^7.9.1",
@@ -39,14 +39,18 @@
 		"@eslint/js": "^10.0.1",
 		"@types/bcryptjs": "^2.4.6",
 		"@types/express": "^5.0.6",
+		"@types/jest": "^30.0.0",
 		"@types/jsonwebtoken": "^9.0.10",
 		"@typescript/native": "npm:typescript@^7.0.2",
+		"cross-env": "^10.1.0",
 		"dotenv": "^17.4.2",
 		"eslint": "^10.8.0",
 		"eslint-config-prettier": "^10.1.8",
 		"globals": "^17.8.0",
+		"jest": "^30.4.2",
 		"prettier": "^3.9.6",
 		"prisma": "^7.9.1",
+		"ts-jest": "^29.4.12",
 		"tsx": "^4.23.1",
 		"typescript": "npm:@typescript/typescript6@^6.0.2",
 		"typescript-eslint": "^8.65.0"

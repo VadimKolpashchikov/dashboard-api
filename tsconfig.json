@@ -2,18 +2,17 @@
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
-    // "rootDir": "./src",
+    "rootDir": "./src",
     "outDir": "./dist",
     "paths": {
       "@database/*": [
-        "./prisma/generated/prisma/*"
-      ]
+        "./src/prisma/generated/prisma/*"
+      ],
     },
     "removeComments": true,
-    // Environment Settings
-    // See also https://aka.ms/tsconfig/module
+    "moduleResolution": "NodeNext",
     "esModuleInterop": true,
-    "module": "nodenext",
+    "module": "NodeNext",
     "target": "esnext",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -22,13 +21,12 @@
     // For nodejs:
     "lib": [
       "esnext",
-      "dom"
+      "dom",
     ],
-    // "types": [
-    //   "node"
-    // ],
-    // and npm install -D @types/node
-    // Other Outputs
+    "types": [
+      "node",
+      "jest"
+    ],
     "sourceMap": true,
     "declaration": false,
     "declarationMap": false,
@@ -54,8 +52,6 @@
   },
   "exclude": [
     "./src/raws",
-    // "./prisma.config.ts",
-    // "./prisma"
   ],
   "include": [
     "src/**/*",
